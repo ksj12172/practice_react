@@ -1,15 +1,12 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-// 구조 분해해서 props 대신 {tryInfo} 쓸 수 있다
-const Try = ({tryInfo}) => {
-    return (
-        <>
-            <div>
-                <div>{tryInfo.try} </div>
-                <div>{tryInfo.result} </div>
-            </div>
-        </>
+const Try = memo(({tryInfo}) => {
+    return(
+        <li>
+            <div>{tryInfo.try}</div>
+            <div>{tryInfo.result}</div>
+        </li>
     )
-}
+});
 
 export default Try;
