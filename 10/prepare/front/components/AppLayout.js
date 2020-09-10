@@ -1,8 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/Link';
 import { Menu, Input, Row, Col } from 'antd';
-import 'antd/dist/antd.css'; // webpack이 css 파일도 import 할 수 있게 해준다
 import styled from 'styled-components';
 
 import UserProfile from '../components/UserProfile';
@@ -33,7 +32,7 @@ const AppLayout = ({ children }) => {
             </Menu>
             <Row>
                 <Col xs={24} md={6}>
-                    {isLoggedIn ? <UserProfile /> : <LoginForm />}
+                    {isLoggedIn ? <UserProfile setIsLoggedIn={setIsLoggedIn}/> : <LoginForm setIsLoggedIn={setIsLoggedIn}/>}
                 </Col>
                 <Col xs={24} md={12}>{children} </Col>
                 <Col xs={24} md={6}>
