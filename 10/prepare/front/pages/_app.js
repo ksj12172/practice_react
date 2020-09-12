@@ -5,15 +5,15 @@ import 'antd/dist/antd.css'
 import wrapper from '../store/configureStore'
 
 const NodeBird = ({Component}) => {
-    return (
-        <Provider store={store}>
-            <Head>
-                <meta charset="utf-8"/>
-                <title>NodeBird</title>
-            </Head>
-            <Component />
-        </Provider>
-    )
+	return (
+		<>
+			<Head>
+					<meta charset="utf-8"/>
+					<title>NodeBird</title>
+			</Head>
+			<Component />
+		</>
+	)
 }
 
 NodeBird.propTypes = {
