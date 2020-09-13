@@ -1,10 +1,14 @@
 import React, {useState, useCallback} from 'react';
 import PropTypes from 'prop-types'
 import {useSelector} from 'react-redux';
-import {Popover,Card,Button, Avatar, List} from 'antd';
+import {Popover,Card,Button, Avatar, List, Comment} from 'antd';
 import {RetweetOutlined, HeartTwoTone, HeartOutlined, MessageOutlined, EllipsisOutlined} from '@ant-design/icons';
+import styled from 'styled-components';
+
 import PostImages from './PostImages';
 import CommentForm from './CommentForm';
+import PostCardContent from './PostCardContent';
+import Link from 'next/link';
 
 const PostCard = ({post}) => {
 	const [liked,setLiked] = useState(false);
@@ -17,8 +21,11 @@ const PostCard = ({post}) => {
 	},[]);
 	const id = useSelector((state) => state.user.me?.id);
 
+	const CardWrapper = styled.div`
+		margin-bottom:20px;
+	`
 	return (
-		<div style={{marginBottom:20}}>
+		<CardWrapper>
 			<Card
 				cover={post.Images[0] && <PostImages images={post.Images} />}
 				actions={[
@@ -29,7 +36,7 @@ const PostCard = ({post}) => {
 					<MessageOutlined key="comment" onClick={onToggleComment}/>,
 					<Popover key="more" content={(
 						<Button.Group>
-							{id && post.User.id === id && (
+							{id && post.User.id === id ? (
 								<>
 								<Button>수정</Button>
 								<Button type="danger">삭제</Button>
@@ -41,13 +48,10 @@ const PostCard = ({post}) => {
 					</Popover>
 				]}
 			>
-				<Image />
-				<Content />
-				<Buttons></Buttons>
 				<Card.Meta
-					avatar={<Avatar>{post.User.Nickname[0]}</Avatar>}
+					avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
 					title={post.User.nickname}
-					description={post.content}
+					description={<PostCardContent postData={post.content} />}
 				/>
 			</Card>
 			{commentFormOpened && (
@@ -68,11 +72,12 @@ const PostCard = ({post}) => {
 								</Comment>
 							</li>
 						)}
+					/>
 				</div>
 			)}
 			{/* <CommentForm /> */}
 			{/* <Comments /> */}
-		</div>
+		</CardWrapper>
 	)
 };
 
@@ -82,7 +87,7 @@ PostCard.propTypes = {
 		User:PropTypes.object,
 		content:PropTypes.string,
 		createdAt : PropTypes.object,
-		Comments:propTypes.arrayOf(PropTypes.object),
+		Comments:PropTypes.arrayOf(PropTypes.object),
 		Images:PropTypes.arrayOf(PropTypes.object)
 	}).isRequired,
 }

@@ -41,7 +41,6 @@ const AppLayout = ({ children }) => {
                         rel="noreferrer noopener">Made by ZeroCho</a>
                 </Col>
             </Row>
-            {children}
         </div>
     )
 }
